@@ -10,10 +10,10 @@ int main(void) {
     cin >> fileName_std;               // ввод с кливиатуры пути к файлу с результатами 
     ifstream file_std(fileName_std);    
     
-    std21.open_file(&file_std, fileName_std); // открываем файл
+    size_t size_file = std21.open_file(&file_std, fileName_std); // открываем файл
 
     DATA_PARAM pd;
-    unsigned int *row_in_col = new unsigned int[100];
+    unsigned int *row_in_col = new unsigned int[(int)size_file/2000];
 
     std21.read_file(&file_std, pd, row_in_col); // чтение файла
 

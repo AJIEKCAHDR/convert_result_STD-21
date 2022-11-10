@@ -39,14 +39,16 @@ public:
         exit(0);
     }
 
-    void open_file(ifstream *file, string fileName) {
+    size_t open_file(ifstream *file, string fileName) {
         if (!file->is_open()) { cout << "Error opening file: '" << fileName << "'." << endl; end_programm(); }
 
         file->seekg(0, ifstream::end);   // определяем размер файла
-        int size_file = file->tellg();
+        size_t size_file = file->tellg();
         file->seekg(0, ifstream::beg);  // перемещение указателя к началу файла
 
         cout << endl << "Size file: '" << fileName << "' = " << size_file << " byte" << endl;  // размер файла с результатами
+
+        return size_file;
     }
 
     int read_file(ifstream *file, DATA_PARAM &p, unsigned int *num_row_cols) {
