@@ -119,7 +119,8 @@ public:
         if (!getline(*file, line)) cout << "Reading file ... OK!" << endl << endl; 
         else { cout << "End of file not reached!" << endl; end_programm(); }
 
-        for (unsigned int i = 0; i < p.col; i++) if (name[i].sample != name[i+1].sample) p.num_sample++;  // подсчёт числа образцов
+          // подсчёт числа образцов
+        for (unsigned int i = 0; i < p.col; i++) if ((name[i].sample != name[i+1].sample) || (name[i].thickness != name[i+1].thickness)) p.num_sample++;
         p.num_value = p.col/p.num_sample;
         cout << "Number of samples = " << p.num_sample << ", Number of value = " << p.num_value << endl << endl;
 
@@ -164,11 +165,11 @@ public:
         
         string fileName_res_sample;
 
-        for (unsigned int i = 0; i < p.col; i+=p.num_value) {
+        for (unsigned int i = 0, f_num = 1; i < p.col; i+=p.num_value, f_num++) {
             
             name[i].sample.erase(0, 7);     // удаление перед именем образца 'Sample=''
 
-            fileName_res_sample = name[i].sample.erase(name[i].sample.length()) + ".asc";    // создаем файл для записи преобразованного результата
+            fileName_res_sample = name[i].sample.erase(name[i].sample.length()) + "_" + to_string(f_num) + ".asc";    // создаем файл для записи преобразованного результата
             ofstream file_res(fileName_res_sample);
             if (!file_res) { cout << "Error opening file: '" << fileName_res_sample << "'." << endl; end_programm(); }
 
